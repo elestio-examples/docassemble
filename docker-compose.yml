@@ -1,0 +1,20 @@
+version: "3.3"
+services:
+  docassemble:
+    image: jhpyle/docassemble:${SOFTWARE_VERSION_TAG}
+    restart: always
+    env_file:
+      - ./.env
+    volumes:
+      # - ./dabackup:/usr/share/docassemble/backup
+      - dabackup:/usr/share/docassemble
+    ports:
+      - 172.17.0.1:63472:80
+
+volumes:
+  dabackup:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/dabackup
+      o: bind
